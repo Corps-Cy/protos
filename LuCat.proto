@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcService.LuCat";
+
+import "google/protobuf/empty.proto";
+
+package LuCat;
+
+service LuCatService {
+    rpc GetLuCat(google.protobuf.Empty) returns (SuckingResult) {}
+}
+
+message SuckingResult {
+    string message = 1;
+}
+
