@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcService.FileAsync";
+
+package FileAsyncService;
+
+service FileService {
+    rpc UploadFile (stream UploadFileRequest) returns (UploadFileResponse) {}
+    rpc DownloadFile (DownloadFileRequest) returns (stream DownloadFileResponse) {}
+}
+// 文件上传请求对象
+message UploadFileRequest {
+    //当前文件包guid
+    string PackageGuid=1;
+    //文件上传模式
+    RelayMode Mode=2;
+    //文件模型
+    FileModel Pack = 3;
+}
+
+// 文件上传响应对象
+message UploadFileResponse {
+    FileResponse Response = 1;
+}
+
+//文件下载请求对象
+message DownloadFileRequest {
+    string FileName = 1;
+}
+
+//文件下载响应对象
+message DownloadFileResponse {
+    FileResponse Response = 1;
+    //当前文件包guid
+    string PackageGuid=2;
+    //文件上传模式
+    RelayMode Mode=3;
+    //文件模型
+    FileModel Pack = 4;
+}
+
+//文件基础模型
+message FileModel {
+
+    //文件名
+    string FileName = 1;
+    //文件扩展名
+    string Extension=2;
+    //全路径
+    string fullPath=3;
+    //文件大小
+    int64 FileSize=4;
+    //当前包大小
+    int64 CurrentPackageSize=5;
+    //文件包总数
+    int64 PackageCount=6;
+    //文件包索引
+    int64 PackageIndex=7;
+    //文件包内容
+    bytes PackageContent=8;
+}
+
+//下载文件
+message DownloadFile{
+    string FilePath = 1;
+}
+
+//响应主体
+message FileResponse {
+    //响应状态
+    bool Status = 1;
+    //响应消息
+    string Message = 2;
+}
+
+enum RelayMode{
+    //继续
+    continue=0;
+    //回滚删除
+    rollback=1;
+    //断点续传
+    breakpoint=2;
+    //异常停止
+    stop=3;
+}
