@@ -1,14 +1,10 @@
 name: Automated API Tests
 
-defaults:
-  run:
-    shell: bash
-
 on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
@@ -22,4 +18,4 @@ jobs:
       run: npm install -g apifox-cli
 
     - name: Running Test Scenario
-      run: apifox run https://api.apifox.com/api/v1/projects/3759591/api-test/ci-config/396924/detail?token=x-mzCzeKjIVnxzWzIPnKsC -r html,cli
+      run: apifox run https://api.apifox.com/api/v1/projects/3759591/api-test/ci-config/396924/detail?token=xz_cYe5HTGGqIdNYgFrIyA -r html,cli
