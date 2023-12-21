@@ -1,0 +1,25 @@
+name: Automated API Tests
+
+defaults:
+  run:
+    shell: bash
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install Apifox CLI
+      run: npm install -g apifox-cli
+
+    - name: Running Test Scenario
+      run: apifox run https://api.apifox.com/api/v1/projects/3759591/api-test/ci-config/396924/detail?token=x-mzCzeKjIVnxzWzIPnKsC -r html,cli
